@@ -1,20 +1,9 @@
-from abc import ABCMeta, abstractmethod
-import sys
 import numpy as np
 from scipy import sparse as sp
-import math
 import pandas as pd
-from scipy.optimize import minimize, fmin_slsqp, check_grad, approx_fprime
-from itertools import (
-    zip_longest,
-    product,
-    permutations,
-    combinations_with_replacement,
-)
+from scipy.optimize import fmin_slsqp
 import plotly.graph_objects as go
 from pymongo import MongoClient
-import pickle
-import bson
 import os
 import random
 
@@ -114,13 +103,13 @@ def get_offsets_oilgas(header, radius):
                 df_["api"] = df["api"].iloc[idx]
                 df_["date"] = pd.to_datetime(df_["date"])
                 df_offsets = df_offsets.append(df_)
-            except:
+            except Exception:
                 pass
 
         # df_offsets['api'] = df_offsets['api'].apply(
         #     lambda x: str(np.round(dists[offsets.index(x)], 3))+' mi - '+x)
         df_offsets.sort_values(by="api", inplace=True)
-    except:
+    except Exception:
         pass
 
     return df, df_offsets
@@ -787,5 +776,5 @@ for api in apis:
         crm.save_cons(api)
         crm.write_db(api)
         print(str(api) + " completed")
-    except:
+    except Exception:
         print(str(api) + " failed")
