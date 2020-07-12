@@ -1,6 +1,6 @@
 import numpy as np
-from scipy import sparse as sp
 import pandas as pd
+from scipy import sparse as sp
 from scipy.optimize import fmin_slsqp
 import plotly.graph_objects as go
 from pymongo import MongoClient
