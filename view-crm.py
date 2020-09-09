@@ -12,7 +12,15 @@ header = get_graph_oilgas(str(api))
 
 df, offsets = get_offsets_oilgas(header, 0.1, 35)
 
-df_cons = pd.DataFrame(list(db.doggr.aggregate([{"$unwind": "$crm.cons"},])))
+df_cons = pd.DataFrame(
+    list(
+        db.doggr.aggregate(
+            [
+                {"$unwind": "$crm.cons"},
+            ]
+        )
+    )
+)
 cons = []
 for row in df_cons["crm"]:
     cons.append(row["cons"])
