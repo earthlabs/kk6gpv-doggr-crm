@@ -12,7 +12,10 @@ def get_prodinj(wells):
     client = MongoClient(os.environ["MONGODB_CLIENT"])
     db = client.petroleum
     docs = db.doggr.aggregate(
-        [{"$unwind": "$prodinj"}, {"$match": {"api": {"$in": wells}}},]
+        [
+            {"$unwind": "$prodinj"},
+            {"$match": {"api": {"$in": wells}}},
+        ]
     )
     df = pd.DataFrame()
     for x in docs:
@@ -513,7 +516,8 @@ class CRMP(object):
                             y1=wells["prds"][prd]["y"],
                             layer="below",
                             line=dict(
-                                color=clr, width=self.B1.T[idx][jdx] * 10,
+                                color=clr,
+                                width=self.B1.T[idx][jdx] * 10,
                             ),
                         )
                     )
